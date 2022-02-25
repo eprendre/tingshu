@@ -1,0 +1,84 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.4.32'
+}
+
+group 'com.github.eprendre.customsources'
+version '1.0-SNAPSHOT'
+
+repositories {
+    maven {
+        url 'https://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    maven {
+        url 'https://maven.aliyun.com/nexus/content/repositories/jcenter'
+    }
+//    mavenCentral()
+//    jcenter()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation 'com.github.kittinunf.fuel:fuel:2.3.1'
+    implementation 'com.github.kittinunf.fuel:fuel-json:2.3.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
+    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
+
+    implementation group: 'org.json', name: 'json', version: '20140107'
+    implementation 'org.jsoup:jsoup:1.13.1'
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'com.willowtreeapps.assertk:assertk-jvm:0.16'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+jar {
+    from sourceSets.main.output
+    include "com/github/eprendre/${MY_SOURCES_PACKAGE}/**"
+//    exclude('com/github/eprendre/tingshu/**')
+}
+
+task dexTask {
+    doLast {
+        if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+            def folder = new File("${projectDir}/../dx_win")
+            if (!folder.exists()) {
+//                println("请解压 dx_win.zip (不能嵌套)")//中文输出会乱码，干脆新建一个txt文件提示。
+                exec {
+                    workingDir "${buildDir}/libs/"
+                    commandLine 'cmd', '/c', "echo a>请解压dx_win.zip.txt"
+                }
+            } else {
+                exec {
+                    workingDir "${buildDir}/libs/"
+                    commandLine 'cmd', '/c', "${projectDir}/../dx_win/dx.bat --dex --output=${MY_SOURCES_PACKAGE}.jar CustomSources-1.0-SNAPSHOT.jar"
+                }
+                exec {
+                    workingDir "${buildDir}/libs/"
+                    commandLine 'cmd', '/c', "echo adb push ${MY_SOURCES_PACKAGE}.jar /sdcard/Android/data/com.github.eprendre.tingshu/files/jars> upload.bat"
+                }
+                exec {
+                    workingDir "${buildDir}/libs/"
+                    commandLine 'cmd', '/c', "echo pause>> upload.bat"
+                }
+            }
+        } else {
+            exec {
+                workingDir "${buildDir}/libs/"
+                commandLine 'sh', '-c', "dx --dex --output=${MY_SOURCES_PACKAGE}.jar CustomSources-1.0-SNAPSHOT.jar"
+            }
+            exec {
+                workingDir "${buildDir}/libs/"
+                commandLine 'sh', '-c', "echo adb push ${MY_SOURCES_PACKAGE}.jar /sdcard/Android/data/com.github.eprendre.tingshu/files/jars > upload.sh"
+            }
+        }
+    }
+}
+
+jar.finalizedBy(dexTask)
