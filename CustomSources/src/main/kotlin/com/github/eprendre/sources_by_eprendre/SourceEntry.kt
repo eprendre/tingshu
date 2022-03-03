@@ -52,7 +52,8 @@ object SourceEntry {
             JiHe,
             HaiYangTingShu,
             M456TingShu,
-            LiuTingWang
+            LiuTingWang,
+            VBus
         )
     }
 }
