@@ -20,7 +20,8 @@ object SourceEntry {
         return listOf(
             NanGua,
             JiuZhou,
-            NiuNiu
+            NiuNiu,
+            YingHuaCD
         )
     }
 }
