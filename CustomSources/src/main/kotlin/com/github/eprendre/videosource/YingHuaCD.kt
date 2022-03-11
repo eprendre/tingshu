@@ -25,6 +25,10 @@ object YingHuaCD : TingShu(){
         return "樱花动漫拥有上万集高清晰画质的在线动漫，观看完全免费、无须注册、高速播放、更新及时的专业在线樱花动漫站，我们致力为所有动漫迷们提供最好看的动漫。"
     }
 
+    override fun isCacheable(): Boolean {
+        return false
+    }
+
     override fun search(keywords: String, page: Int): Pair<List<Book>, Int> {
         val encodedKeywords = URLEncoder.encode(keywords, "utf-8")
         val url = if (page == 1) {
