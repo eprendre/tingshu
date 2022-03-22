@@ -130,7 +130,12 @@ object JiHe: TingShu(){
                     val id = jsonObj.getString("id")
                     val attributes = jsonObj.getJSONObject("attributes")
                     if (attributes.has("audio")) {
-                        val audioUrl = "https://alioss.gcores.com/uploads/audio/${attributes.getString("audio")}"
+                        val audio = attributes.getString("audio")
+                        val audioUrl = if (audio.contains("http")) {
+                            audio
+                        } else {
+                            "https://alioss.gcores.com/uploads/audio/${audio}"
+                        }
                         audioUrlMap[id] = audioUrl
                     }
                 }
