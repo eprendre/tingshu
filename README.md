@@ -8,7 +8,7 @@
 
 * 听书源（若已有内置源无需重复添加） `https://eprendre2.coding.net/p/tingshu/d/tingshu/git/raw/master/TingShuSources/external_sources.json`
 * ASMR 相关，作者/老陈: `https://kylo94.coding.net/p/tingshuyuan/d/UpdateJar/git/raw/master/kyloasmr.json`
-* 作者/鸽子: `https://tingshu1.coding.net/p/tingshu_ting22/d/tingshu_ting22/git/raw/master/source.json`
+* 视频源: `https://eprendre2.coding.net/p/tingshu/d/tingshu/git/raw/master/TingShuSources/videosource.json`
 
 ## 视频教程
 
@@ -16,7 +16,6 @@
 * 订阅制作：[https://www.bilibili.com/video/BV1MV411z7kJ](https://www.bilibili.com/video/BV1MV411z7kJ)
 
 老陈做的教程(更适合新手)： [https://www.bilibili.com/video/BV1Jf4y1C7m8](https://www.bilibili.com/video/BV1Jf4y1C7m8)
-
 
 ## 下载
 

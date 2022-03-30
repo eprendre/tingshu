@@ -63,7 +63,9 @@ fastlane/test_output
 fastlane/readme.md
 CustomSources/src/test/kotlin/My*.kt
 CustomSources/src/test/kotlin/WoTingPingShuTest.kt
+CustomSources/src/test/kotlin/LaJiTest.kt
 CustomSources/src/test/kotlin/I275Test.kt
 CustomSources/src/main/kotlin/com/github/eprendre/sources_by_eprendre/WoTingPingShu.kt
 CustomSources/src/main/kotlin/com/github/eprendre/sources_by_eprendre/IShuYinTingShu.kt
 CustomSources/src/main/kotlin/com/github/eprendre/sources_by_eprendre/I275.kt
+CustomSources/src/main/kotlin/com/github/eprendre/sources_by_eprendre/LaJi.kt
