@@ -20,8 +20,16 @@ object Wap520 : TingShu() {
         return "520听书网v2"
     }
 
+    override fun isDiscoverable(): Boolean {
+        return false
+    }
+
+    override fun isSearchable(): Boolean {
+        return false
+    }
+
     override fun getDesc(): String {
-        return "推荐指数:3星 ⭐⭐⭐\n另一个520听书网, 虽同名应该不是同一个。"
+        return "推荐指数:2星 ⭐⭐\n另一个520听书网, 虽同名应该不是同一个。此源质量不行，禁用之。"
     }
 
     override fun search(keywords: String, page: Int): Pair<List<Book>, Int> {

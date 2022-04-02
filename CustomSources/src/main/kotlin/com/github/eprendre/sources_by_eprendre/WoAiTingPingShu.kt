@@ -20,8 +20,16 @@ object WoAiTingPingShu : TingShu(), AudioUrlExtraHeaders {
         return "我爱听评书网"
     }
 
+    override fun isDiscoverable(): Boolean {
+        return false
+    }
+
+    override fun isSearchable(): Boolean {
+        return false
+    }
+
     override fun getDesc(): String {
-        return "推荐指数:3星 ⭐⭐⭐"
+        return "推荐指数:3星 ⭐⭐⭐\n网站已转为阅读类站点，有声资源全部失效，请禁用此源"
     }
 
     override fun search(keywords: String, page: Int): Pair<List<Book>, Int> {

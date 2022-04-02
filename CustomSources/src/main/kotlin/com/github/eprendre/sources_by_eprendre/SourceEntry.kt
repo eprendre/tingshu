@@ -13,14 +13,13 @@ object SourceEntry {
     }
 
     /**
-     * 返回此包下面的源
+     * 返回此包下面的源, 若编译不通过请删除下面不存在的源。
      */
     @JvmStatic
     fun getSources(): List<TingShu> {
         HuanTingWang.c24e329b36b542f4adde9694d4b28a4r()
         return listOf(
             HuanTingWang,
-//            JDLG,//已失效
             YouTuYueDu,
             YunTuYouSheng,
             WoTingPingShu,
@@ -38,9 +37,6 @@ object SourceEntry {
             XinMo,
             TingShu74,
             TingShuBao,
-            //            MaLaTIngShu
-//                YouYuKu,
-//                HaiDao,
             SouGou,
             Mgting,
             AiTingShu,
@@ -53,7 +49,11 @@ object SourceEntry {
             HaiYangTingShu,
             M456TingShu,
             LiuTingWang,
-            VBus
+            VBus,
+            JuTingWang,
+            M56TingShu,
+            MaLaTingShu,
+            LaJi
         )
     }
 }
