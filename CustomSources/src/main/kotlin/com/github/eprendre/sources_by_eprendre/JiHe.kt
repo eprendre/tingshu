@@ -69,7 +69,7 @@ object JiHe: TingShu(){
                 val coverUrl = element.selectFirst(".original_imgArea").attr("style")
                     .replace("background-image:url(", "")
                     .replace(")", "")
-                val bookUrl = element.selectFirst(".am_card_inner > .am_card_content.original_content").absUrl("href")
+                val bookUrl = element.selectFirst(".am_card_inner > a").absUrl("href")
                 val title = element.selectFirst(".am_card_title").text()
                 val author = ""
                 val artist = ""

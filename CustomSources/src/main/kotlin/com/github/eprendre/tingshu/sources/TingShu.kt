@@ -120,6 +120,7 @@ interface IAd {
 
     /**
      * 是否默认展示广告
+     * @Deprecated 已弃用
      */
     fun showAdByDefault(): Boolean = false
 }

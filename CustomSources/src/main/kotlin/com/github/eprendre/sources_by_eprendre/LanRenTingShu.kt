@@ -1,5 +1,6 @@
 package com.github.eprendre.sources_by_eprendre
 
+import com.github.eprendre.tingshu.extensions.extractorAsyncExecute
 import com.github.eprendre.tingshu.extensions.getMobileUA
 import com.github.eprendre.tingshu.extensions.notifyLoadingEpisodes
 import com.github.eprendre.tingshu.extensions.showToast
@@ -144,16 +145,24 @@ object LanRenTingShu : TingShu(), ILogin {
             val track = tracks.getJSONObject(it)
             val id = track.getLong("id")
             val index = size + it
-            val episode = Episode(track.getString("name"), "https://m.lrts.me/player?index=${index}&entityType=3&sonId=${id}&id=${bookId}")
-            episode.isFree = track.getInt("payType") == 0
+            val section = track.getInt("section")
+            val isFree = track.getInt("payType") == 0
+            val episodeUrl = if (isFree) {
+                "https://m.lrts.me/ajax/getPlayPath?entityId=${bookId}&entityType=3&opType=1&sections=[${section}]&type=0"
+            } else {
+                "https://m.lrts.me/player?index=${index}&entityType=3&sonId=${id}&id=${bookId}"
+            }
+            val episode = Episode(track.getString("name"), episodeUrl)
+            episode.isFree = isFree
             list.add(episode)
         }
         return list
     }
 
     override fun getAudioUrlExtractor(): AudioUrlExtractor {
-        AudioUrlWebViewSniffExtractor.setUp(validateUrl = null)//重置条件
-        return AudioUrlWebViewSniffExtractor
+//        AudioUrlWebViewSniffExtractor.setUp(validateUrl = null)//重置条件
+//        return AudioUrlWebViewSniffExtractor
+        return LanRenExtractor
     }
 
     override fun getCategoryMenus(): List<CategoryMenu> {
@@ -427,5 +436,20 @@ object LanRenTingShu : TingShu(), ILogin {
 
     override fun isLoginDesktop(): Boolean {
         return false
+    }
+}
+
+object LanRenExtractor: AudioUrlExtractor {
+    override fun extract(url: String, autoPlay: Boolean, isCache: Boolean, isDebug: Boolean) {
+        if (url.contains("getPlayPath")) {
+            AudioUrlJsonExtractor.setUp {
+                val jsonarray = it.obj().getJSONArray("list")
+                return@setUp jsonarray.getJSONObject(0).getString("path")
+            }
+            AudioUrlJsonExtractor.extract(url, autoPlay, isCache, isDebug)
+        } else {
+            AudioUrlWebViewSniffExtractor.setUp(validateUrl = null)//重置条件
+            AudioUrlWebViewSniffExtractor.extract(url, autoPlay, isCache, isDebug)
+        }
     }
 }

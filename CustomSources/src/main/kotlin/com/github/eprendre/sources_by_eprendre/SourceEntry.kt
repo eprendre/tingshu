@@ -53,7 +53,6 @@ object SourceEntry {
             JuTingWang,
             M56TingShu,
             MaLaTingShu,
-            LaJi,
             LanRenTingShu
         )
     }
