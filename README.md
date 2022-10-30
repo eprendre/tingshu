@@ -6,9 +6,10 @@
 
 添加方法：复制下方网址，打开app左侧菜单源管理，右上角点击添加。
 
-* 听书源（若已有内置源无需重复添加） `https://cdn.jsdelivr.net/gh/eprendre/tingshu_resources/TingShuSources/external_sources.json`
-* ASMR 相关，作者/老陈: `https://kylo94.coding.net/p/tingshuyuan/d/UpdateJar/git/raw/master/kyloasmr.json`
-* 视频源: `https://cdn.jsdelivr.net/gh/eprendre/tingshu_resources/TingShuSources/videosource.json`
+* 听书源（若已有内置源无需重复添加） `https://s3-us-east-1.ossfiles.com/tingshu/tingshu_source/external_sources.json`
+* ASMR 相关，作者/老陈: `https://s3-us-east-1.ossfiles.com/tingshu/tingshu_source/kylo/kyloasmr.json`
+* 视频源: `https://s3-us-east-1.ossfiles.com/tingshu/tingshu_source/videosource.json`
+* 英文有声源: `https://s3-us-east-1.ossfiles.com/tingshu/tingshu_source/english_source.json`
 
 ## 视频教程
 
