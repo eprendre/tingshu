@@ -4,6 +4,7 @@ import com.github.eprendre.tingshu.utils.Book
 import com.github.eprendre.tingshu.utils.BookDetail
 import com.github.eprendre.tingshu.utils.Category
 import com.github.eprendre.tingshu.utils.CategoryMenu
+import com.google.gson.Gson
 
 abstract class TingShu {
     /**
@@ -99,7 +100,7 @@ abstract class TingShu {
      */
     open fun isWebViewCompatible() = false
 
-    open fun method220() = false
+    open fun method238() = false
 
     open fun c24e329b36b542f4adde9694d4b28a4r() = false
 }
@@ -177,4 +178,38 @@ interface ILogin {
      * 登录页是否需要使用 PC 版 UA，默认使用手机版
      */
     fun isLoginDesktop(): Boolean = false
+}
+
+/**
+ * 播放状态有变化时的回调, 需要监控播放状态的请实现此接口
+ * 在 2.3.5 开始加入
+ */
+interface IPlaybackStateCallback {
+    /**
+     * state 参数有：playing, paused, error, stopped
+     */
+    fun onPlaybackStateChanged(state: String)
+}
+
+/**
+ * 歌词接口
+ * 2.5.1 开始加入
+ */
+interface ILrc {
+    /**
+     * 歌词配置缓存文件，当播放时会尝试读取歌词缓存文件，如果发现有，就提取对应章节名的下载地址用downloadLrc去下载。
+     * 建议在刷新章节时（也就是getBookDetailInfo里面），调用此方法来保存、刷新相关章节对应的歌词信息。
+     * hashMap: key:章节名 value:对应章节的歌词下载地址，传给后续的downloadLrc使用。
+     * sourceId: 源id
+     * bookUrl: 书本地址，和源id一起用来生成独立的配置缓存文件名
+     */
+    fun saveLrcConfig(hashMap: HashMap<String, String>, sourceId: String, bookUrl: String) {
+        throw RuntimeException("Stub!")
+    }
+
+    /**
+     * 下载歌词文件，可以在这里手动做歌词文件的缓存。
+     * @return 返回歌词内容String
+     */
+    fun downloadLrc(url: String): String
 }

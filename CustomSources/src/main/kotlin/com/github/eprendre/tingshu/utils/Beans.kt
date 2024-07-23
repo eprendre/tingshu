@@ -3,7 +3,7 @@ package com.github.eprendre.tingshu.utils
 data class Book(
     var coverUrl: String,//封面链接
     val bookUrl: String,//书籍链接
-    val title: String,//标题
+    var title: String,//标题
     var author: String,//作者
     var artist: String//演播
 ) {
@@ -43,8 +43,10 @@ data class Book(
 
 data class Episode(val title: String, val url: String) {
     var isFree: Boolean = true
-    var isCached: Boolean = false
+    @Transient var isCached: Boolean = false
     var progress: Int = 0
+    var coverUrl: String = ""//章节封面
+    var transcript: String = ""//文稿，可以传网址，将打开网页。也可以传文本，则打开一个文本框，文本可以用html标签格式。
 }
 
 interface IMenu {
@@ -68,7 +70,9 @@ data class BookDetail(
     val author: String = "",
     val episodesCount: Int = 0,
     val coverUrl: String = ""
-)
+) {
+    val title: String = ""
+}
 
 
 /**

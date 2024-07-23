@@ -3,6 +3,7 @@ package com.github.eprendre.tingshu.extensions
 import com.github.eprendre.tingshu.utils.Book
 import io.reactivex.disposables.Disposable
 import org.jsoup.Connection
+import java.io.File
 import java.net.URL
 import java.net.URLDecoder
 
@@ -86,5 +87,32 @@ fun extractorAsyncExecute(
     backgroundTask: () -> String,
     mainThreadCallback: (String) -> Unit
 ): Disposable {
+    throw RuntimeException("Stub!")
+}
+
+/**
+ * 获取今天播放时长, 单位毫秒
+ * 2.3.5 开始加入
+ */
+fun todayPlaybackTime(): Long {
+    throw RuntimeException("Stub!")
+}
+
+/**
+ * 控制播放器, 根据传入的 action 进行相应的操作:
+ * play, pause, skipToNext, skipToPrevious, rewind, fastForward, stop
+ * 2.3.5 开始加入
+ */
+fun playerControl(action: String) {
+    throw RuntimeException("Stub!")
+}
+
+/**
+ * 获取每个源自己的缓存目录
+ * @param sourceId 源id
+ * @param subDir 指定一个子目录，比如用来存放lrc
+ * 2.5.1 开始加入
+ */
+fun getSourceCacheDir(sourceId: String, subDir: String): File {
     throw RuntimeException("Stub!")
 }
