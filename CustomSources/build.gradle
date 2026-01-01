@@ -17,6 +17,7 @@ repositories {
 }
 
 dependencies {
+    compileOnly fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation 'com.github.kittinunf.fuel:fuel:2.3.1'
     implementation 'com.github.kittinunf.fuel:fuel-json:2.3.1'
@@ -56,11 +57,17 @@ tasks.register('dexTask') {
             }
             exec {
                 workingDir "${buildDir}/libs/"
-                commandLine 'cmd', '/c', "echo adb push ${MY_SOURCES_PACKAGE}.jar /sdcard/Android/data/com.github.eprendre.tingshu/files/jars> upload.bat"
-            }
-            exec {
-                workingDir "${buildDir}/libs/"
-                commandLine 'cmd', '/c', "echo pause>> upload.bat"
+                commandLine 'cmd', '/c', """
+(
+echo @echo off
+echo set APK_DIR=/sdcard/Android/data/com.github.eprendre.tingshu/files/jars
+echo set FILE=${MY_SOURCES_PACKAGE}.jar
+echo.
+echo adb push %%FILE%% %%APK_DIR%% || exit /b 1
+echo adb shell chmod 444 %%APK_DIR%%/%%FILE%%
+echo pause
+) > upload.bat
+"""
             }
         } else {
             exec {
@@ -69,7 +76,17 @@ tasks.register('dexTask') {
             }
             exec {
                 workingDir "${buildDir}/libs/"
-                commandLine 'sh', '-c', "echo adb push ${MY_SOURCES_PACKAGE}.jar /sdcard/Android/data/com.github.eprendre.tingshu/files/jars > upload.sh"
+                commandLine 'sh', '-c', """
+cat > upload.sh <<'EOF'
+#!/bin/bash
+
+APK_DIR="/sdcard/Android/data/com.github.eprendre.tingshu/files/jars"
+FILE="${MY_SOURCES_PACKAGE}.jar"
+
+adb push "\$FILE" "\$APK_DIR/" || exit 1
+adb shell chmod 444 "\$APK_DIR/\$FILE"
+EOF
+"""
             }
         }
     }

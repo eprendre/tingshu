@@ -113,6 +113,7 @@ sealed class ConfigItem(
     val key: String,
     val label: String
 ) {
+    class Button(label: String, val click: () -> Unit) : ConfigItem("", label)//2.6.0加入
     class Text(key: String, label: String, var default: String = "") : ConfigItem(key, label)
     class Select(key: String, label: String, val options: List<String>, var default: String) : ConfigItem(key, label)
     class Switch(key: String, label: String, var default: Boolean) : ConfigItem(key, label)
